@@ -81,7 +81,7 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/oled-status.jpg" width="800"><br/>
+  <img src="assets/images/IMG_2197.DNG" width="800"><br/>
   <i>OLED display showing live classification status and sample count</i>
 </p>
 
