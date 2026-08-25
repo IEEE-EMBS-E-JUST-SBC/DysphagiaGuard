@@ -121,8 +121,6 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
   <source src="assets/videos/backstage.mp4" type="video/mp4">
 </video>
 
-> **Note:** Rename your two exported `.mp4` files to match the `src` paths above (or update the paths to match your filenames), and place them in the same folder as this markdown file. YouTube links are not accepted per the submission rules — local `.mp4` only.
-
 ---
 
 ## Features (Detailed)
