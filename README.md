@@ -86,7 +86,7 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/flutter-dashboard.jpg" width="800"><br/>
+  <img src="/assets/images/DysphagiaGuard/flutter-dashboard.png" width="800"><br/>
   <i>Flutter companion app — live IMU waveform, buffering ring, and current classification</i>
 </p>
 
