@@ -306,15 +306,3 @@ Key packages used: `firebase_core`, `firebase_database`, `flutter_litert`, `intl
   └─ hardware/
       └─ esp32_enclosure_8_5x5x5cm.dxf
 ```
-
----
-
-## License (Optional)
-
-Open-source for educational and non-commercial research use. See the project's [GitHub repository](https://github.com/IEEE-EMBS-E-JUST-SBC/IEEE-MYOSA-6.0-DysphagiaGuard) for license details.
-
----
-
-## Contribution Notes (Optional)
-
-Issues and pull requests are welcome on the [GitHub repository](https://github.com/IEEE-EMBS-E-JUST-SBC/IEEE-MYOSA-6.0-DysphagiaGuard) — particularly around expanding the labeled swallow dataset, improving the TinyML model's generalization across wearers, and refining the heuristic classifier's thresholds for broader use cases.
