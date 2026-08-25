@@ -1,7 +1,7 @@
 ---
 publishDate: 2026-08-25T00:00:00Z
 
-title: DysphagiaGuard — Smart Swallowing & Aspiration Risk Monitoring System
+title: DysphagiaGuard || IEEE EMBS E-JUST SBC
 
 excerpt: A MYOSA-based TinyML wearable that continuously monitors swallowing kinematics and classifies each swallow as Normal, Delayed/Incomplete, or Aspiration Risk in real time — alerting the wearer locally and notifying caregivers via a companion Flutter app.
 
@@ -56,52 +56,52 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 ### Images
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/cover.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-1.jpg" width="800"><br/>
   <i>DysphagiaGuard neck-worn wearable — full assembled unit</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/system-architecture.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-2.jpg" width="800"><br/>
   <i>Hardware architecture: MYOSA motherboard coordinating the IMU board, OLED display, buzzer, and BLE relay to the caregiver's phone</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/signal-pipeline.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-3.jpg" width="800"><br/>
   <i>Six-stage signal pipeline: sensing → preprocessing → feature extraction → TinyML inference → alert → logging</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/enclosure-laser-cutting.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-4.jpg" width="800"><br/>
   <i>Laser-cutting the wood/acrylic enclosure panels — DXF layout for the 8.5×5×5 cm housing</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/enclosure-assembled.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-5.jpg" width="800"><br/>
   <i>Assembled neck-mount enclosure housing the MYOSA motherboard and IMU board</i>
 </p>
 
 <p align="center">
-  <img src="assets/images/IMG_2197.DNG" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-6.jpg" width="800"><br/>
   <i>OLED display showing live classification status and sample count</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/flutter-dashboard.png" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-7.jpg" width="800"><br/>
   <i>Flutter companion app — live IMU waveform, buffering ring, and current classification</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/flutter-history.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-8.jpg" width="800"><br/>
   <i>Flutter companion app — scrollable swallow event history with confidence scores</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/firebase-rtdb.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-9.jpg" width="800"><br/>
   <i>Firebase Realtime Database structure: /devices/&lt;deviceId&gt;/live and /status paths</i>
 </p>
 
 <p align="center">
-  <img src="/assets/images/DysphagiaGuard/team-demo.jpg" width="800"><br/>
+  <img src="assets/images/dysphagiaguard-img-10.jpg" width="800"><br/>
   <i>Live demonstration setup at the conference venue</i>
 </p>
 
@@ -112,13 +112,13 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 **Project Presentation & Testing**
 
 <video controls width="100%">
-  <source src="/dysphagiaguard-presentation-and-testing.mp4" type="video/mp4">
+  <source src="assets/videos/presentation.mp4" type="video/mp4">
 </video>
 
 **Backstage / Build Process**
 
 <video controls width="100%">
-  <source src="/dysphagiaguard-backstage.mp4" type="video/mp4">
+  <source src="assets/videos/backstage.mp4" type="video/mp4">
 </video>
 
 > **Note:** Rename your two exported `.mp4` files to match the `src` paths above (or update the paths to match your filenames), and place them in the same folder as this markdown file. YouTube links are not accepted per the submission rules — local `.mp4` only.
