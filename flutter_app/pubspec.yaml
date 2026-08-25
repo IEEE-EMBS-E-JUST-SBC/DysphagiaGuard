@@ -1,0 +1,40 @@
+name: dysphagiaguard
+description: "DysphagiaGuard — on-device swallow & aspiration-risk monitor."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.6.0
+  firebase_database: ^11.1.4
+  intl: ^0.19.0
+
+  # On-device TinyML inference
+  # Using flutter_litert (an actively-maintained fork of tflite_flutter)
+  # instead of tflite_flutter directly. tflite_flutter 0.10.4 is unmaintained
+  # and breaks on current Dart SDKs with:
+  #   "The method 'UnmodifiableUint8ListView' isn't defined for the type 'Tensor'"
+  # because Dart removed that constructor from typed_data and the package was
+  # never updated. flutter_litert is a source-compatible fork that fixes this
+  # and bundles native libraries automatically (no manual .so/.dll setup).
+  flutter_litert: ^3.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  # TFLite model + feature normalization stats, bundled with the app.
+  assets:
+    - assets/models/dysphagia_imu_model_float32.tflite
+    - assets/models/feature_stats.json
