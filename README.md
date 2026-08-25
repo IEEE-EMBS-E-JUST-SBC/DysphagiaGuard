@@ -26,7 +26,7 @@ Built by **Abdelrahman Hamza, Mariam Ibrahim, and Omar Salama**, Department of B
 
 Thanks to the IEEE EMBS E-JUST Student Branch Chapter and the MYOSA organizing team for the platform and the opportunity to build and demo this project.
 
-Full source: [github.com/IEEE-EMBS-E-JUST-SBC/IEEE-MYOSA-6.0-DysphagiaGuard](https://github.com/IEEE-EMBS-E-JUST-SBC/IEEE-MYOSA-6.0-DysphagiaGuard)
+Full source: [[github.com/IEEE-EMBS-E-JUST-SBC/IEEE-MYOSA-6.0-DysphagiaGuard](https://github.com/IEEE-EMBS-E-JUST-SBC/DysphagiaGuard/)]
 
 ---
 
