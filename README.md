@@ -155,6 +155,10 @@ For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are comput
 ## Demo / Examples
 
 ### Images
+<p align="center">
+  <img src="assets/images/prototype-7.jpeg" width="800"><br/>
+  <i>Volunteer wearing DysphagiaGuard on the neck strap during a live testing session</i>
+</p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-1.jpg" width="800"><br/>
@@ -202,7 +206,7 @@ For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are comput
 </p>
 
 <p align="center">
-  <img src="assets/images/dysphagiaguard-img-10.jpg" width="800"><br/>
+  <img src="assets/images/prototype-2.jpeg" width="800"><br/>
   <i>Final wiring pass before closing up the enclosure — components laid out for one last continuity check</i>
 </p>
 
@@ -212,16 +216,9 @@ For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are comput
 </p>
 
 <p align="center">
-  <img src="assets/images/dysphagiaguard-img-12.jpg" width="800"><br/>
+  <img src="assets/images/prototype-3.jpeg" width="800"><br/>
   <i>Assembled wearable worn on a volunteer's neck, OLED showing a live "Status: Normal" reading during a test session</i>
 </p>
-
-<p align="center">
-  <img src="assets/images/dysphagiaguard-img-13.jpg" width="800"><br/>
-  <i>Volunteer wearing DysphagiaGuard on the neck strap during a live testing session</i>
-</p>
-
-> **Note:** Replace the placeholder filenames above with your actual JPG/PNG files, keeping them in the same folder as this markdown file, lowercase, no spaces, matching these names exactly (or update the `src` paths to match your real filenames).
 
 ### Videos
 
@@ -236,8 +233,6 @@ For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are comput
 <video controls width="100%">
   <source src="/dysphagiaguard-backstage.mp4" type="video/mp4">
 </video>
-
-> **Note:** Per the MYOSA submission rules, YouTube links are not accepted — both files must be local `.mp4` uploads placed in the same folder as this markdown file.
 
 ---
 
