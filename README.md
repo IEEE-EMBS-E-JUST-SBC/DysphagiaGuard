@@ -18,6 +18,15 @@ tags:
 
 > Continuous, at-home swallowing surveillance — built entirely on the MYOSA Mini platform, with real-time on-device inference and live caregiver alerts.
 
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-MYOSA%20Mini-red">
+  <img alt="Firmware" src="https://img.shields.io/badge/firmware-C%2B%2B%20%2F%20ESP32-blue">
+  <img alt="App" src="https://img.shields.io/badge/app-Flutter-02569B">
+  <img alt="ML" src="https://img.shields.io/badge/inference-TensorFlow%20Lite-FF6F00">
+  <img alt="Backend" src="https://img.shields.io/badge/backend-Firebase%20RTDB-FFCA28">
+  <img alt="Status" src="https://img.shields.io/badge/status-prototype%20%2F%20demo--tested-brightgreen">
+</p>
+
 ---
 
 ## Acknowledgements
@@ -40,6 +49,19 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 
 **Who it's for:** elderly individuals, stroke survivors, and patients with Parkinson's disease or ALS — populations where undetected aspiration carries serious, often silent, health risk.
 
+### At a Glance
+
+| | |
+|---|---|
+| **Platform** | MYOSA Mini (motherboard + IMU board + OLED + buzzer) |
+| **Sampling rate** | ~100 Hz, 6-axis (3× accel + 3× gyro) |
+| **Inference window** | 3 seconds (300 samples) → 48 engineered features |
+| **Classes** | Normal · Delayed/Incomplete · Aspiration Risk |
+| **Classification** | On-device TinyML (TFLite) + interpretable rule-based heuristic |
+| **Connectivity** | WiFi → Firebase Realtime Database → Flutter app (BLE relay for extended range) |
+| **Enclosure** | Laser-cut wood/acrylic, ~8.5 × 5 × 5 cm, neck-worn |
+| **Alerting** | OLED status + buzzer (device) · push-style live dashboard (app) |
+
 **Key features:**
 * Continuous, non-invasive, neck-worn IMU monitoring of swallow kinematics — no hospital equipment required
 * On-device / near-real-time classification into **Normal**, **Delayed/Incomplete**, or **Aspiration Risk**
@@ -48,6 +70,85 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 * Firebase Realtime Database as the live data bridge between the wearable and the mobile app
 * On-device TinyML pipeline (TFLite, 48 hand-engineered time/frequency-domain features per 3-second window) alongside a rule-based heuristic classifier for interpretable, inspectable decision-making
 * Custom laser-cut wood/acrylic and 3D-printed neck-mount enclosure for consistent, comfortable, repeatable sensor placement
+
+### System Architecture
+
+```mermaid
+flowchart TB
+    subgraph Wearable["Neck-Worn Wearable"]
+        IMU["MYOSA IMU Board<br/>6-axis Accel + Gyro"]
+        MB["MYOSA Motherboard<br/>ESP32 · WiFi · BLE"]
+        OLED["OLED Display"]
+        BUZ["Buzzer"]
+        IMU -->|I2C| MB
+        MB -->|status| OLED
+        MB -->|alert pattern| BUZ
+    end
+
+    subgraph Cloud["Firebase Realtime Database"]
+        LIVE["/devices/deviceId/live<br/>raw IMU stream ~100Hz"]
+        STATUS["/devices/deviceId/status<br/>classification result"]
+    end
+
+    subgraph App["Flutter Companion App"]
+        FEED["Live IMU Feed Listener"]
+        FEAT["Feature Extractor<br/>48 features / 3s window"]
+        CLS["Classifier<br/>TFLite + Heuristic"]
+        UI["Dashboard UI<br/>waveform · history · alerts"]
+        FEED --> FEAT --> CLS --> UI
+        CLS -->|writes result| STATUS
+    end
+
+    MB -->|WiFi write ~100Hz| LIVE
+    LIVE -->|stream| FEED
+    STATUS -->|poll 500ms| MB
+
+    style Wearable fill:#1b2444,stroke:#8b5cf6,color:#fff
+    style Cloud fill:#2b2408,stroke:#facc15,color:#fff
+    style App fill:#0a2a2a,stroke:#22d3ee,color:#fff
+```
+
+### Signal Processing & Classification Pipeline
+
+```mermaid
+flowchart LR
+    A["Raw IMU Sample<br/>ax, ay, az, gx, gy, gz"] --> B["Buffer 3s Window<br/>300 samples @ 100Hz"]
+    B --> C["Feature Extraction<br/>8 features × 6 axes = 48"]
+    C --> D["Normalize<br/>(x − mean) / scale"]
+    D --> E{"Classifier"}
+    E -->|TFLite path| F["Quantized NN<br/>softmax [3 classes]"]
+    E -->|Heuristic path| G["Gyro/Az Motion Rules<br/>peak · duration · settle · cough-spike"]
+    F --> H["Result"]
+    G --> H["Result"]
+    H --> I{"Class?"}
+    I -->|Normal| J["OLED: Normal<br/>Buzzer: silent"]
+    I -->|Delayed/Incomplete| K["OLED: Delayed<br/>Buzzer: 1s on/off"]
+    I -->|Aspiration Risk| L["OLED: Aspiration Risk<br/>Buzzer: 1s on/off"]
+    H --> M["Firebase /status<br/>+ Event History Log"]
+
+    style E fill:#8b5cf6,color:#fff
+    style I fill:#22d3ee,color:#000
+```
+
+<details>
+<summary><b>▶ Click to expand: per-window feature list (48 features)</b></summary>
+
+For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are computed per 3-second window:
+
+| # | Feature | What it captures |
+|---|---|---|
+| 1 | Mean | DC offset / resting bias |
+| 2 | Standard deviation | Overall variability |
+| 3 | RMS | Signal magnitude |
+| 4 | Peak (max abs) | Sharpest motion moment |
+| 5 | Energy | Total motion intensity |
+| 6 | Zero-crossing rate | Oscillation frequency |
+| 7 | Spectral centroid | "Center of mass" of frequency content |
+| 8 | Spectral flatness | Tonal vs. noise-like character |
+
+`6 channels × 8 features = 48` — normalized with `StandardScaler` stats exported alongside the trained model.
+
+</details>
 
 ---
 
@@ -126,11 +227,17 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 
 **🎥 Project Presentation & Testing**
 
-[▶ Click here to watch the Project Presentation & Testing](assets/videos/presentation.mp4)
+<video controls width="100%">
+  <source src="/dysphagiaguard-presentation-and-testing.mp4" type="video/mp4">
+</video>
 
 **🎥 Backstage / Build Process**
 
-[▶ Click here to watch the Backstage / Build Process](assets/videos/backstage.mp4)
+<video controls width="100%">
+  <source src="/dysphagiaguard-backstage.mp4" type="video/mp4">
+</video>
+
+> **Note:** Per the MYOSA submission rules, YouTube links are not accepted — both files must be local `.mp4` uploads placed in the same folder as this markdown file.
 
 ---
 
@@ -150,6 +257,20 @@ Each sample is pushed live to Firebase in the shape:
 }
 ```
 
+```mermaid
+sequenceDiagram
+    participant Firmware as ESP32 Firmware
+    participant RTDB as Firebase RTDB
+    participant App as Flutter App
+
+    loop every ~10ms
+        Firmware->>Firmware: read IMU (ax,ay,az,gx,gy,gz)
+        Firmware->>RTDB: write /devices/id/live
+    end
+    RTDB-->>App: onValue stream
+    App->>App: buffer into 300-sample window
+```
+
 ### 2. On-Device Signal Processing & Feature Extraction
 
 Every 3-second window (300 samples at 100 Hz) is reduced to **48 features** — 8 features per axis (mean, std, RMS, peak, energy, zero-crossing rate, spectral centroid, spectral flatness) across all 6 IMU channels, in a fixed order that must exactly match the order used during model training. These are then normalized with the same scaler statistics exported from the training pipeline before being fed to the classifier.
@@ -161,9 +282,28 @@ Two classification paths are implemented side by side:
 - **TinyML path (TFLite):** A quantized neural network trained in Edge Impulse takes the 48 normalized features and outputs softmax probabilities across `[normal, delayed_incomplete, aspiration_risk]`.
 - **Heuristic path:** A transparent, rule-based classifier that reasons directly over calibrated gyroscope-magnitude and accelerometer-Z motion signatures — peak magnitude, event duration, settle time, and secondary "cough-like" spikes — against a per-device baseline captured during a 30-second calibration hold. This keeps the decision logic inspectable rather than a black box, and was used to drive the live demo classification while the TFLite path stays wired up for its intended on-device role.
 
+```mermaid
+flowchart TD
+    S["30s Calibration Hold<br/>device at rest"] --> B["Baseline: gyro/az bias<br/>+ noise floor"]
+    B --> W["New 3s Window"]
+    W --> P{"Peak gyro mag<br/>> threshold?<br/>AND az excursion signature?"}
+    P -->|No| U["Unknown / No Event"]
+    P -->|Yes| SEC{"Secondary spike<br/>OR sharp peak +<br/>slow settle?"}
+    SEC -->|Yes| ASP["Aspiration Risk"]
+    SEC -->|No| SLOW{"Slow settle OR<br/>long duration OR<br/>slow time-to-peak?"}
+    SLOW -->|Yes| DEL["Delayed / Incomplete"]
+    SLOW -->|No| NORM["Normal Swallow"]
+```
+
 ### 4. Local Alerting (OLED + Buzzer)
 
 The MYOSA OLED display shows the live classification status and running sample count. The buzzer stays **silent for Normal Swallow** and rings in a 1-second on/off pattern for **Delayed** or **Aspiration Risk** classifications, giving the wearer an immediate, unambiguous physical alert without needing to look at a screen.
+
+| Classification | OLED | Buzzer |
+|---|---|---|
+| Normal Swallow | `Status: Normal` | Silent |
+| Delayed / Incomplete | `Status: Delayed` | 1s on / 1s off |
+| Aspiration Risk | `Status: Aspiration` | 1s on / 1s off |
 
 ### 5. Firebase Realtime Database as the Live Bridge
 
@@ -183,6 +323,26 @@ The companion app (built with Flutter + `firebase_database` + `flutter_litert` f
 - **Metric cards** for current classification, confidence, and session stats
 - A **scrollable event history** log with color-coded risk levels (mint = normal, amber = delayed, coral = aspiration risk) and timestamps
 - A **calibration flow** — a 30-second still-hold at the start of each session to capture the per-wearer motion baseline used by the heuristic classifier
+
+<details>
+<summary><b>▶ Click to expand: Flutter app module map</b></summary>
+
+```mermaid
+flowchart TB
+    main["main.dart"] --> dash["DashboardScreen"]
+    dash --> wave["LiveWaveform"]
+    dash --> ring["BufferRing"]
+    dash --> metrics["MetricCard / EventHistoryTile"]
+    dash --> feed["LiveImuFeed"]
+    feed --> imu["ImuSample model"]
+    feed --> heur["HeuristicSwallowClassifier"]
+    feed --> tfl["SwallowClassifier (TFLite)"]
+    tfl --> fe["FeatureExtractor"]
+    fe --> fft["SimpleFFT"]
+    tfl --> fs["FeatureStats (scaler + config)"]
+```
+
+</details>
 
 ### 7. Custom Wearable Enclosure
 
@@ -238,6 +398,20 @@ On launch, hold the wearable still for the 30-second calibration window. This ca
 ### 4. Laser-Cut the Enclosure
 
 Use `esp32_enclosure_8_5x5x5cm.dxf` with your laser cutter's software (e.g. LightBurn) on 3 mm wood or acrylic sheet. Panels are sized to house the MYOSA motherboard and IMU board in a fixed neck-mount orientation.
+
+<details>
+<summary><b>▶ Click to expand: full setup checklist</b></summary>
+
+- [ ] Rotate/replace the Firebase database secret before flashing (never reuse the one from this repo)
+- [ ] Flash `DysphagiaGuard_Final_Code.ino` with your own WiFi + Firebase credentials
+- [ ] Confirm `DEVICE_ID` in firmware matches `deviceId` in `main.dart`
+- [ ] Run `flutterfire configure` to generate your own `firebase_options.dart`
+- [ ] Bundle `dysphagia_imu_model_float32.tflite` + `feature_stats.json` as Flutter assets
+- [ ] Laser-cut enclosure panels from `esp32_enclosure_8_5x5x5cm.dxf`
+- [ ] Assemble electronics into enclosure, checking wire routing before gluing
+- [ ] Power on, complete the 30s calibration hold, verify OLED shows `Status: Normal`
+
+</details>
 
 ---
 
