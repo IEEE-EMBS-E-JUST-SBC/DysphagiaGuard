@@ -57,52 +57,67 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-1.jpg" width="800"><br/>
-  <i>DysphagiaGuard neck-worn wearable — full assembled unit</i>
+  <i>Bench build: MYOSA OLED display board and audio/sensor daughterboard wired and test-fitted inside the laser-cut enclosure before final assembly</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-2.jpg" width="800"><br/>
-  <i>Hardware architecture: MYOSA motherboard coordinating the IMU board, OLED display, buzzer, and BLE relay to the caregiver's phone</i>
+  <i>Fitting the OLED module and Li-ion cell into the enclosure — checking clearance and wire routing before gluing panels shut</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-3.jpg" width="800"><br/>
-  <i>Six-stage signal pipeline: sensing → preprocessing → feature extraction → TinyML inference → alert → logging</i>
+  <i>Full electronics stack laid out and wired on the bench: battery, charging/boost module, MYOSA motherboard, IMU board, and OLED display, prior to enclosure integration</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-4.jpg" width="800"><br/>
-  <i>Laser-cutting the wood/acrylic enclosure panels — DXF layout for the 8.5×5×5 cm housing</i>
+  <i>Close-up of the MYOSA motherboard (MCU, BLE, WiFi, buzzer) connected to the IMU sensor board, mid-assembly inside the enclosure shell</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-5.jpg" width="800"><br/>
-  <i>Assembled neck-mount enclosure housing the MYOSA motherboard and IMU board</i>
+  <i>Full kit unboxing and workstation setup: MYOSA sensor boards, laser-cut enclosure panels, battery, adhesives, and tools laid out before assembly</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-6.jpg" width="800"><br/>
-  <i>OLED display showing live classification status and sample count</i>
+  <i>Assembly desk: enclosure panels, MYOSA boards, and soldering iron set up for the build session</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-7.jpg" width="800"><br/>
-  <i>Flutter companion app — live IMU waveform, buffering ring, and current classification</i>
+  <i>Firmware development in progress — flashing and debugging the Arduino sketch on the MYOSA dev module while assembling the enclosure alongside it</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-8.jpg" width="800"><br/>
-  <i>Flutter companion app — scrollable swallow event history with confidence scores</i>
+  <i>Debugging session: MYOSA board powered on (status LED lit) and connected via USB while the firmware is edited and re-flashed</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-9.jpg" width="800"><br/>
-  <i>Firebase Realtime Database structure: /devices/&lt;deviceId&gt;/live and /status paths</i>
+  <i>Continued firmware debugging and wiring checks at the desk, cross-referencing the Arduino IDE serial output against the physical connections</i>
 </p>
 
 <p align="center">
   <img src="assets/images/dysphagiaguard-img-10.jpg" width="800"><br/>
-  <i>Live demonstration setup at the conference venue</i>
+  <i>Final wiring pass before closing up the enclosure — components laid out for one last continuity check</i>
+</p>
+
+<p align="center">
+  <img src="assets/images/dysphagiaguard-img-11.jpg" width="800"><br/>
+  <i>Enclosure lid removed, showing the OLED display, IMU board, and battery seated inside the finished laser-cut wood housing</i>
+</p>
+
+<p align="center">
+  <img src="assets/images/dysphagiaguard-img-12.jpg" width="800"><br/>
+  <i>Assembled wearable worn on a volunteer's neck, OLED showing a live "Status: Normal" reading during a test session</i>
+</p>
+
+<p align="center">
+  <img src="assets/images/dysphagiaguard-img-13.jpg" width="800"><br/>
+  <i>Volunteer wearing DysphagiaGuard on the neck strap during a live testing session</i>
 </p>
 
 > **Note:** Replace the placeholder filenames above with your actual JPG/PNG files, keeping them in the same folder as this markdown file, lowercase, no spaces, matching these names exactly (or update the `src` paths to match your real filenames).
