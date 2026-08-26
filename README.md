@@ -109,17 +109,13 @@ Today, catching this requires a hospital visit — a Videofluoroscopic Swallow S
 
 ### Videos
 
-**Project Presentation & Testing**
+**🎥 Project Presentation & Testing**
 
-<video controls width="100%">
-  <source src="assets/videos/presentation.mp4" type="video/mp4">
-</video>
+[▶ Click here to watch the Project Presentation & Testing](assets/videos/presentation.mp4)
 
-**Backstage / Build Process**
+**🎥 Backstage / Build Process**
 
-<video controls width="100%">
-  <source src="assets/videos/backstage.mp4" type="video/mp4">
-</video>
+[▶ Click here to watch the Backstage / Build Process](assets/videos/backstage.mp4)
 
 ---
 
