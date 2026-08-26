@@ -234,7 +234,10 @@ For each of the 6 IMU channels (`ax, ay, az, gx, gy, gz`), 8 features are comput
   <source src="/dysphagiaguard-backstage.mp4" type="video/mp4">
 </video>
 
----
+> ⚠️ **Note:** If the video not loading on github, please try to download it locally to play in normal way.
+
+
+--
 
 ## Features (Detailed)
 
